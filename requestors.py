@@ -6,8 +6,6 @@ import logging as log
 try:
     from google.appengine.api import urlfetch
     from google.appengine.runtime import DeadlineExceededError
-    import urllib
-    import json
 except:
     pass
 
@@ -17,7 +15,8 @@ try:
 except:
     pass
 
-
+import urllib
+import json
 # StockTwits details
 ST_BASE_URL = 'https://api.stocktwits.com/api/2/'
 ST_BASE_PARAMS = dict(access_token=os.getenv('ST_ACCESS_TOKEN'))
@@ -25,10 +24,10 @@ ST_BASE_PARAMS = dict(access_token=os.getenv('ST_ACCESS_TOKEN'))
 __author__ = 'Jason Haury'
 
 
-class Requests():
+class Requests:
     """ Uses `requests` library to GET and POST to Stocktwits, and also to convert resonses to JSON
     """
-    def get_json(url, params=None):
+    def get_json(self, url, params=None):
         """ Uses tries to GET a few times before giving up if a timeout.  returns JSON
         """
         resp = None
@@ -46,7 +45,7 @@ class Requests():
         else:
             return json.loads(resp.content)
 
-    def post_json(url, params=None, deadline=30):
+    def post_json(self, url, params=None, deadline=30):
         """ Tries to post a couple times in a loop before giving up if a timeout.
         """
         resp = None
